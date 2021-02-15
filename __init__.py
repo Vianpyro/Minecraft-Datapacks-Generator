@@ -1,5 +1,8 @@
-from .datapack import Datapack
-from .files import *
-from .utils import Raycast
-VERSION = "0.0.1"
-AUTHOR = "Vianpyro"
+# -*- coding: utf-8 -*-
+
+__version__ = "0.0.1"
+__author__ = "Vianpyro"
+
+from .wmcpy.datapack import Datapack
+from .wmcpy.files import *
+from .wmcpy.utils import Raycast

@@ -1,5 +1,6 @@
 import os
 
+
 def make_directory(name, path=''):
     '''
     This functions creates a directory
