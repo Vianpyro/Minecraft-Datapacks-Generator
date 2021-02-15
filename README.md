@@ -4,7 +4,10 @@
 * First of all make sure you have [Python](https://www.python.org/downloads/) **3.9.0** or above installed on your computer.
 * Download this repository in the folder where the datapack should be generated.
 * Create a new empty [Python](https://www.python.org/downloads/) file.
-* Import the wmcpy "library" in your new [Python](https://www.python.org/downloads/) file.
+* Import the library in your new [Python](https://www.python.org/downloads/) file like this :
+```py
+from Minecraft_Datapacks_Generator import *
+```
 * Create and compile your own datapack.
 * Once the datapack is generated, paste it in the *datapacks* folder of your [Minecraft](https://www.minecraft.net/download) world.
 * Type `/reload` to load the datapack.
