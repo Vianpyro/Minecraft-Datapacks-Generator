@@ -27,6 +27,11 @@ if os.name == "nt":
                             break
         print(f'Paste the "minecraft_datapack_generator" folder in here: {folder}{directory}.')
 else:
-    print('This operating system is not compatible with the installation wizard.')
+    folder = f'/usr/lib/python3.9'
+    if os.path.exists(f'{folder}{directory}'):
+        print('Found at:', f'{folder}{directory}, replace this version with the latest release.')
+    else:
+        print(f'Paste the "minecraft_datapack_generator" folder in here: {folder}{directory}.')
+
 
 input('Press "enter" to close this window.')
