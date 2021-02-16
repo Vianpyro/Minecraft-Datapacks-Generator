@@ -26,8 +26,8 @@ else:
                             found = True
                             print(f'Found at: {path} in {time() - time0:0.1} seconds.')
                             break
-        except OSError as e:
-            print(e)
+        except OSError:
+            raise OSError('Unable to scan your computer.')
         else:
             print(f'Paste the "minecraft_datapack_generator" folder in here: {folder}{directory}.')
 
