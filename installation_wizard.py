@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 import os
-import subprocess
 from time import time
 
 # Save the name of the directory and the path to it into variables
