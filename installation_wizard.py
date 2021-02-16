@@ -8,14 +8,16 @@ from zipfile import ZipFile
 # Save the name of the directory and the path to it into variables
 directory = 'minecraft_datapacks_generator'
 folder = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\Programs\\Python\\Python39\\Lib' if os.name == 'nt' else '/usr/lib/python3.9'
+exist = os.path.exists(f'{folder}\\{directory}') and os.path.isdir(f'{folder}\\{directory}')
 
 def ask_user(querry):
     return input(f'{querry}? [yes/no]: ')[0].lower() == 'y'
 
 # Scan the user computer
-if os.path.exists(f'{folder}\\{directory}') and os.path.isdir(f'{folder}{directory}'):
+if exist:
     print(f'Found at: {folder}\\{directory}, replace this version with the latest release.')
 else:
+    print('Unable to find the library.')
     if ask_user('Do you want to scan your computer to look for the folder'):
         found = False
         directory_list = str(folder + '\\site-packages').split('\\')
@@ -27,7 +29,6 @@ else:
 
             for HDD in HDDs:
                 if not found:
-                    print('walking in', HDD)
                     for path, dirs, files in os.walk(HDD):
                         if folder + '\\' + directory in path:
                             found = True
@@ -45,7 +46,7 @@ try:
     resp = dlurl.urlopen(f'https://api.github.com/repos/Vianpyro/{directory}/releases')
     data = loads(resp.read())[0]
     version = data['tag_name']
-    
+
     if ask_user(f'Would you like to download the latest version ({version})'):
         try:
             print(f'Downloading {directory} {version}...')
@@ -54,13 +55,19 @@ try:
 
             print(f'Unziping {directory} {version}...')
             with ZipFile(f'{directory}.zip', 'r') as zipf:
-                zipf.extractall()
+                zipf.extractall(f'{folder}')
                 zipf.close()
                 os.remove(f'{directory}.zip')
-                print(f'Successfully extracted {directory} {version}.')
-
+                if exist:
+                    print(
+                        f'Successfully extracted {directory} {version} in "{folder}".',
+                        f'\nYou now have to delete the old version of the library and rename the most recent one "{directory}".'
+                    )
+                else:
+                    os.rename(f'{folder}\\{directory}-{version}', f'{folder}\\{directory}')
+                    print(f'Successfully extracted and installed {directory} {version} in "{folder}".')
         except:
-            print(f'Unable to download "https://github.com/Vianpyro/{directory}/archive/{version}.zip"')
+            print(f'Unable to download and/or extract "https://github.com/Vianpyro/{directory}/archive/{version}.zip"')
 except:
     print('Unable to access the internet.')
 
