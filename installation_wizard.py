@@ -8,22 +8,22 @@ directory = '\\minecraft_datapacks_generator'
 if os.name == "nt":
     folder = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\Programs\\Python\\Python39\\Lib'
     
-    if os.path.exists(f'{folder}{directory}') and os.path.isdir(folder):
+    if os.path.exists(f'{folder}{directory}') and os.path.isdir(f'{folder}{directory}'):
         print('Found at:', f'{folder}{directory}, replace this version with the latest release.')
     else:
         if input('Do you want to scan your computer to look for the folder? [yes/no]: ')[0].lower() == 'y':
             found = False
-            HDDs = ['\\'.join(str(folder + '\\site-packages').split('\\')[:len(folder.split('\\'))-i+2])
-                for i in range(4) if i != 0] + [e + ':\\' for e in 'CDEFGHIJK' if os.path.exists(e + ':\\')]
+            directory_list = str(folder + '\\site-packages').split('\\')
+            tree = ['\\'.join(directory_list[:i + 1]) for i in range(len(directory_list))][::-1]
+            HDDs = tree + [e + ':\\' for e in 'CDEFGHIJK' if os.path.exists(e + ':\\')]
 
-            for HDD in HDDs[:3]:
+            for HDD in HDDs:
                 if not found:
-                    print('Walking in', HDD)
                     time0 = time()
                     for path, dirs, files in os.walk(HDD):
                         if folder + directory in path:
                             found = True
-                            print('Found at:', path, 'in', time() - time0, 'seconds.')
+                            print(f'Found at: {path} in {time() - time0:0.1} seconds.')
                             break
         print(f'Paste the "minecraft_datapack_generator" folder in here: {folder}{directory}.')
 else:
