@@ -32,8 +32,7 @@ else:
                     for path, dirs, files in os.walk(HDD):
                         if folder + '\\' + directory in path:
                             found = True
-                            print(
-                                f'Found at: {path} in {time() - time0:0.1} seconds.')
+                            print(f'Found at: {path} in {time() - time0:0.1} seconds.')
                             break
         except OSError as e:
             print(e)
@@ -68,6 +67,6 @@ try:
         except:
             print(f'Unable to download and/or extract "https://github.com/Vianpyro/{directory}/archive/{version}.zip"')
 except:
-    print('Unable to access the internet.')
+    print('Unable to resolve host name.')
 
 input('Press "enter" to close this window.')
