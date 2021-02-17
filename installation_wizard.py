@@ -38,8 +38,7 @@ else:
         except OSError as e:
             print(e)
         else:
-            print(
-                f'Paste the "minecraft_datapack_generator" folder in here: {folder}\\{directory}.')
+            print(f'Paste the "minecraft_datapack_generator" folder in here: {folder}\\{directory}.')
 
 # Download the latest version
 try:
