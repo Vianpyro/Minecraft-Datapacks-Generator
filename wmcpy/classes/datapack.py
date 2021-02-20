@@ -32,16 +32,14 @@ class Datapack():
             mkdir(path + '/' + self.name + '/data/' + workspace.name)
             if workspace.files != None:
                 for file in workspace.files:
-                    print('ok')
                     if file != None:
-                        print('ok')
                         mkdir(path + '/' + self.name + '/data/' + workspace.name + '/functions')
                         commands = ''
                         for command in file.commands:
                             commands += str(command) + '\n'
                         open(path + '/' + self.name + '/data/' + workspace.name + '/functions/' + file.name + '.mcfunction', 'w+', encoding='utf-8').write(commands)
         if self.raycasts != None:
-            todo = ['/raycast', '/raycast/tags', '/raycast/tags/blocks', '/raycast/functions', '/raycast/functions/generated_raycast']
+            todo = ['/raycast', '/raycast/tags', '/raycast/tags/blocks', '/raycast/functions', '/raycast/functions/generated_raycast', '/minecraft', '/minecraft/tags', '/minecraft/tags/functions']
             for f in todo:
                 try:
                     mkdir(path + '/' + self.name + '/data' + f)
@@ -50,10 +48,12 @@ class Datapack():
             try:
                 open(path + '/' + self.name + '/data/raycast/functions/load.mcfunction', 'w+').write('scoreboard objectives add ray_found dummy')
             except: pass
+            try:
+                dump({"values":["raycast:load"]}, open(path + '/' + self.name + '/data/minecraft/tags/functions/load.json', 'w+'))
+            except: pass
             for raycast_id in range(len(self.raycasts)):
                 raycast = self.raycasts[raycast_id]
                 t = (raycast.range[0] * 2) * (raycast.range[1] * 2)
-                print(t)
                 if t * (raycast.range[2] * 2) >= 32768: raise Error('The maximum block cloning limit is set to 32767')
                 del t
                 dump({"replace": False,"values": raycast.blocks}, open(path + '/' + self.name + '/data/raycast/tags/blocks/tohit_{}.json'.format(raycast_id), 'w+'))
