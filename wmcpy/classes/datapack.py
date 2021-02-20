@@ -32,7 +32,9 @@ class Datapack():
             mkdir(path + '/' + self.name + '/data/' + workspace.name)
             if workspace.files != None:
                 for file in workspace.files:
+                    print('ok')
                     if file != None:
+                        print('ok')
                         mkdir(path + '/' + self.name + '/data/' + workspace.name + '/functions')
                         commands = ''
                         for command in file.commands:
@@ -55,7 +57,4 @@ class Datapack():
                 if t * (raycast.range[2] * 2) >= 32768: raise Error('The maximum block cloning limit is set to 32767')
                 del t
                 dump({"replace": False,"values": raycast.blocks}, open(path + '/' + self.name + '/data/raycast/tags/blocks/tohit_{}.json'.format(raycast_id), 'w+'))
-                try:
-                    open(path + '/' + self.name + '/data/raycast/functions/generated_raycast/raycast_{}.mcfunction'.format(raycast_id), 'w+').write('execute store result score raycast_{3} ray_found run clone ~-{0} ~-{1} ~-{2} ~{0} ~{1} ~{2} ~-{0} ~-{1} ~-{2} filtered {4} force'.format(raycast.range[0], raycast.range[1], raycast.range[2], raycast_id, '#raycast:tohit_' + str(raycast_id)))
-                except:
-                    print('bruh')
+                open(path + '/' + self.name + '/data/raycast/functions/generated_raycast/raycast_{}.mcfunction'.format(raycast_id), 'w+').write('execute store result score raycast_{3} ray_found run clone ~-{0} ~-{1} ~-{2} ~{0} ~{1} ~{2} ~-{0} ~-{1} ~-{2} filtered {4} force'.format(raycast.range[0], raycast.range[1], raycast.range[2], raycast_id, '#raycast:tohit_' + str(raycast_id)))
