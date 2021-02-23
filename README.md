@@ -2,37 +2,38 @@
 
 ## How to use?
 
-* First of all make sure you have [Python](https://www.python.org/downloads/) **3.9.0** or above installed on your computer.
-* Download this repository in the folder where the datapack should be generated.
+* First of all make sure you have [Python](https://www.python.org/downloads/) **3** or more recent installed on your computer.
 * Create a new empty [Python](https://www.python.org/downloads/) file.
 * Import the library in your new [Python](https://www.python.org/downloads/) file.
 * Create and compile your own datapack.
-* Once the datapack is generated, paste it in the *datapacks* folder of your [Minecraft](https://www.minecraft.net/download) world.
 * Type `/reload` to load the datapack.
 * Have fun playing with your brand new handmade datapack!
 
-### Example
+## Example
 
 ```py
-from datapackmc import *
+from MDG import *
 
-datapack = Datapack('my super datapack', 'hey this is the description of my super datapack!', '6')
+datapack = Datapack('t', 't', '6')
 workspace = Workspace('mysuperworkspace')
-function = Function('mysuperfunction', workspace)
-function.set_content(['# warning it is a super code so don\'t copy it!'
-                      'execute run execute run say hey!'])
-datapack.build('.minecraft/saves/mysuperworld', [function])
+file = File('mysuperfile')
+file.set_content(['say this is a super say !'])
+workspace.add_file(file)
+datapack.add_workspace(workspace)
+datapack.build('D:\.minecraft\saves\datapack mc\datapacks', True)
 ```
 
-* In this example, I start by importing the wmcpy "library", this line is ***required*** for the datapack to be generated!!
-* I also create a variable containing the name of my datapack because I want to be able to change it in every file I mention it.
-* Then I create another variable containing an instance of the class "Datapack" to start the creation of my datapack.
-* The title is the name of the datapack I'll paste in the *datapacks* folder of my [Minecraft](https://www.minecraft.net/download) world.
-* The author is me, [Vianpyro](https://github.com/Vianpyro).
-* The pack_meta is the informations I'll set in the *pack.mcmeta* file, this file is very important; it allows [Minecraft](https://www.minecraft.net/download) to read your datapack.
-* As you can see I use 2 *reserved* names: ***main*** - containing the functions I want to repeat every [Minecraft](https://www.minecraft.net/download) tick - and ***load*** - once when the datapack is reloaded.
-* Then I write whatever I want to be in my datapack ; one advancement, 4 functions and a predicate.
-* I know that the new version of my datapack is better than the older so I want to replace it without being asked when I run the program.
-* I also add another function - **main** - after the initialisation of my datapack because I want to be able to change it whenever I want without having to search for it in the big block of code above.
-* Once I'm sure I don't have anything to add to my datapack I compile it.
-* At last, when the datapack is successfuly generated I just paste it into my [Minecraft](https://www.minecraft.net/download) world to enjoy the features I added.
+* In this example, I start by importing the MDG library, this line is **required** for the datapack to be generated!!
+* I created an datapack object with : his name, his description and his [Minecraft](https://www.minecraft.net/download) version
+* after, I added an workspace object, this is where the files will be generated :
+
+    ![IMG](img/workspace.png)
+
+* after, to write commands and to launch them I created a file object, in file explorer it's this :
+
+    ![IMG](img/file.png)
+
+* to write some commands in this file, I added in the file object the set_content function, likez his name you can set the content of your file with, to give our commands to add give to the method an list of str and their str are the commands added in the file
+* and finally I build the datapack with the path to were to export the datapack and if I delete the dir with the same name
+* The author is : [Vianpyro](https://github.com/Vianpyro) and [Theskyblockman](https://github.com/theskyblockman).
+* If you need some help to learn mcfunction and you are french go see the Silvathor's youtube channel

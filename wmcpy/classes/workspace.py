@@ -7,6 +7,6 @@ class Workspace():
         self.files = None
         self.raycasts = None
     def add_file(self, file: File):
-        print('ok...')
-        if self.files == None: self.files = []
-        self.files.append(file)
+        if self.files == None: self.files = [file]
+        else: self.files.append(file)
+        
