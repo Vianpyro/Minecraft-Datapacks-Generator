@@ -25,7 +25,7 @@ class Datapack():
 				mkdir(path + '/' + self.name)
 			else:
 				raise FileExistsError('dir early exist with this path, add force=True to the function to ignore this error and to delete the dir to re-create it')
-		dump({"pack": { "pack_format": int(self.version),"description": self.description}}, open(path + '/' + self.name + '/pack.mcmeta', 'w+', encoding='utf-8'))
+		dump({"pack": { "pack_format": int(self.version),"description": self.description}}, open(path + '/' + self.name + '/pack.mcmeta', 'w+', encoding='utf-8'), indent=4)
 		mkdir(path + '/' + self.name + '/data')
 		for workspace in self.workspaces:
 			mkdir(path + '/' + self.name + '/data/' + workspace.name)
@@ -37,13 +37,17 @@ class Datapack():
 						for command in file.commands:
 							commands += str(command) + '\n'
 						open(path + '/' + self.name + '/data/' + workspace.name + '/functions/' + file.name + '.mcfunction', 'w+', encoding='utf-8').write(commands)
+			if workspace.predicates != None:
+				mkdir(path + '/' + self.name + '/data/' + workspace.name + '/predicates')
+				for predicate in workspace.predicates:
+					dump(predicate.predicate, open(path + '/' + self.name + '/data/' + workspace.name + '/predicates/' + predicate.name + '.json', 'w+', encoding='utf-8'), indent=4)
+
 		if self.raycasts != None:
 			todo = ['/raycast', '/raycast/tags', '/raycast/tags/blocks', '/raycast/functions', '/raycast/functions/generated_raycast', '/minecraft', '/minecraft/tags', '/minecraft/tags/functions']
 			for f in todo:
 				try:
 					mkdir(path + '/' + self.name + '/data' + f)
-				except:
-					pass
+				except: pass
 			try:
 				open(path + '/' + self.name + '/data/raycast/functions/load.mcfunction', 'w+').write('scoreboard objectives add ray_found dummy')
 			except: pass

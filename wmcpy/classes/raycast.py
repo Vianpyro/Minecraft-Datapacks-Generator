@@ -6,4 +6,3 @@ class Raycast():
         self.blocks = blocks
         self.range = range
         self.type = type
-        self.docmd = docmd

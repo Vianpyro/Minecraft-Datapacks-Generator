@@ -6,7 +6,8 @@ from .wmcpy.classes.raycast import *
 from .wmcpy.classes.block_nbt import *
 from .wmcpy.classes.container import *
 from .wmcpy.classes.item import *
-VERSION = "0.0.1"
-AUTHOR = "Theskyblockman (for this fork)"
+from .wmcpy.classes.predicate import *
+VERSION = '0.0.1'
+AUTHOR = 'Theskyblockman (for this fork)'
 __author__ = AUTHOR
 __version__ = VERSION
