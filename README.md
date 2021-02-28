@@ -1,113 +1,39 @@
-# [Minecraft](https://www.minecraft.net/download)-[Datapacks](https://minecraft.gamepedia.com/Data_Pack)-Generator
+# [Minecraft](https://www.minecraft.net/download)-[Datapacks](https://minecraft.gamepedia.com/Data_Pack)-Generator ([M](https://www.minecraft.net/download)[D](https://minecraft.gamepedia.com/Data_Pack)G)
 
 ## How to use?
-* First of all make sure you have [Python](https://www.python.org/downloads/) **3.9.0** or above installed on your computer.
-* Download this repository in the folder where the datapack should be generated.
+
+* First of all make sure you have [Python](https://www.python.org/downloads/) **3** or more recent installed on your computer.
 * Create a new empty [Python](https://www.python.org/downloads/) file.
-* Import the library in your new [Python](https://www.python.org/downloads/) file like this :
-```py
-from minecraft_datapacks_generator import *
-```
+* Import the MDG library in your new [Python](https://www.python.org/downloads/) file.
 * Create and compile your own datapack.
-* Once the datapack is generated, paste it in the *datapacks* folder of your [Minecraft](https://www.minecraft.net/download) world.
 * Type `/reload` to load the datapack.
 * Have fun playing with your brand new handmade datapack!
 
-### Example:
-```python
-from minecraft_datapacks_generator import *
+## Example
 
-my_datapack_title = 'My_Datapack'
-subfolder_title = Datapack(my_datapack_title).subfolder_title
+```py
+from MDG import *
 
-myDatapack = Datapack(
-    title = my_datapack_title,
-    path='~\\home\\Vianpyro\\.minecraft\\saves\\world_42\\datapacks',
-    author = 'Vianpyro',
-    pack_meta = {
-        'minecraft_version': '1.16.4',
-        'description': 'Have fun using my first datapack!'
-    },
-    content = {
-        'advancements': {
-            'root': {
-                "display": {
-                    "title": {
-                        "text": "God",
-                        "color": "red",
-                        "bold": True,
-                    },
-                    "description": {
-                        "text": "Vianpyro!",
-                        "color": "white",
-                        "italic": True
-                    },
-                    "icon": {
-                        "item": "minecraft:grass_block"
-                    },
-                    "frame": "goal",
-                    "show_toast": True,
-                    "announce_to_chat": True,
-                    "hidden": False,
-                    "background": "minecraft:textures/gui/advancements/backgrounds/dirt.png"
-                },
-                "criteria": {
-                    "c1": {
-                        "trigger": "minecraft:slept_in_bed"
-                    }
-                }
-            }
-        },
-        'functions': {
-            'load': f'tellraw @a ["", {{"text": "{my_datapack_title} > Successfuly reloaded the datapack!", "color": "green"}}]',
-            'raycast': Raycast(
-                datapack_name=subfolder_title,
-                function_name='raycast',
-                distance=50,
-                step=0.5,
-                goal='execute if block ~ ~ ~ stone',
-                output="say Stoned",
-                display_particle='flame'
-            ),
-            'test': [
-                'say test ok',
-                'say test ko'
-            ],
-            'test2': import_from_file('resources/functions/silvathor_random')
-        },
-        'predicates': {
-            'my_predict': {
-                "condition": "minecraft:entity_properties",
-                "entity": "this",
-                "predicate": {
-                    "type": "minecraft:player",
-                    "flags": {
-                        "is_sprinting": True
-                    }
-                }
-            }
-        }
-    },
-    auto_replace=True
-)
-
-myDatapack.content['functions']['main'] = [
-    'scoreboard objectives add vianpyro_RAYCAST minecraft.used:minecraft.carrot_on_a_stick',
-    f'execute as @a if score @s vianpyro_RAYCAST matches 1 at @s anchored eyes run function {subfolder_title}:raycast',
-    'scoreboard players set @a[scores={vianpyro_RAYCAST=1}] vianpyro_RAYCAST 0'
-]
-
-myDatapack.compile()
+datapack = Datapack('t', 't', '6')
+workspace = Workspace('mysuperworkspace')
+file = File('mysuperfile')
+file.set_content(['say this is a super say !'])
+workspace.add_file(file)
+datapack.add_workspace(workspace)
+datapack.build('D:\.minecraft\saves\datapack mc\datapacks', True)
 ```
-* In this example, I start by importing the wmcpy "library", this line is ***required*** for the datapack to be generated!!
-* I also create a variable containing the name of my datapack because I want to be able to change it in every file I mention it.
-* Then I create another variable containing an instance of the class "Datapack" to start the creation of my datapack.
-* The title is the name of the datapack I'll paste in the *datapacks* folder of my [Minecraft](https://www.minecraft.net/download) world.
-* The author is me, [Vianpyro](https://github.com/Vianpyro).
-* The pack_meta is the informations I'll set in the *pack.mcmeta* file, this file is very important; it allows [Minecraft](https://www.minecraft.net/download) to read your datapack.
-* As you can see I use 2 *reserved* names: ***main*** - containing the functions I want to repeat every [Minecraft](https://www.minecraft.net/download) tick - and ***load*** - once when the datapack is reloaded.
-* Then I write whatever I want to be in my datapack ; one advancement, 4 functions and a predicate.
-* I know that the new version of my datapack is better than the older so I want to replace it without being asked when I run the program.
-* I also add another function - **main** - after the initialisation of my datapack because I want to be able to change it whenever I want without having to search for it in the big block of code above.
-* Once I'm sure I don't have anything to add to my datapack I compile it.
-* At last, when the datapack is successfuly generated I just paste it into my [Minecraft](https://www.minecraft.net/download) world to enjoy the features I added.
+
+* In this example, I start by importing the MDG library, this line is **required** for the datapack to be generated!!
+* I created an datapack object with : his name, his description and his [Minecraft](https://www.minecraft.net/download) version
+* after, I added an workspace object, this is where the files will be generated :
+
+    ![IMG](img/workspace.png)
+
+* after, to write commands and to launch them I created a file object, in file explorer it's this :
+
+    ![IMG](img/file.png)
+
+* to write some commands in this file, I added in the file object the set_content function, like his name you can set the content of your file with, to give our commands to add give to the method an list of str and their str are the commands added in the file
+* and finally I build the datapack with the path to were to export the datapack and if I delete the dir with the same name
+* The author is : [Vianpyro](https://github.com/Vianpyro) and [Theskyblockman](https://github.com/theskyblockman).
+* If you need some help to learn mcfunction and you are french go see the Silvathor's youtube channel
