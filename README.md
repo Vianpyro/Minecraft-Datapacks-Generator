@@ -1,10 +1,10 @@
-# [Minecraft](https://www.minecraft.net/download)-[Datapacks](https://minecraft.gamepedia.com/Data_Pack)-Generator
+# [Minecraft](https://www.minecraft.net/download)-[Datapacks](https://minecraft.gamepedia.com/Data_Pack)-Generator ([M](https://www.minecraft.net/download)[D](https://minecraft.gamepedia.com/Data_Pack)G)
 
 ## How to use?
 
 * First of all make sure you have [Python](https://www.python.org/downloads/) **3** or more recent installed on your computer.
 * Create a new empty [Python](https://www.python.org/downloads/) file.
-* Import the library in your new [Python](https://www.python.org/downloads/) file.
+* Import the MDG library in your new [Python](https://www.python.org/downloads/) file.
 * Create and compile your own datapack.
 * Type `/reload` to load the datapack.
 * Have fun playing with your brand new handmade datapack!
@@ -33,7 +33,7 @@ datapack.build('D:\.minecraft\saves\datapack mc\datapacks', True)
 
     ![IMG](img/file.png)
 
-* to write some commands in this file, I added in the file object the set_content function, likez his name you can set the content of your file with, to give our commands to add give to the method an list of str and their str are the commands added in the file
+* to write some commands in this file, I added in the file object the set_content function, like his name you can set the content of your file with, to give our commands to add give to the method an list of str and their str are the commands added in the file
 * and finally I build the datapack with the path to were to export the datapack and if I delete the dir with the same name
 * The author is : [Vianpyro](https://github.com/Vianpyro) and [Theskyblockman](https://github.com/theskyblockman).
 * If you need some help to learn mcfunction and you are french go see the Silvathor's youtube channel
